@@ -6,6 +6,11 @@ server:
 nbe:
   url: ${NBE_URI}
 
+ethiopianAirline:
+  email1: ${ET_EMAIL_1}
+  email2: ${ET_EMAIL_2}
+  email3: ${ET_EMAIL_3}
+
 spring:
   config:
     import: file:env.properties
@@ -37,7 +42,7 @@ spring:
             enable: true
           ssl:
             enable: true
-            trust: smtp.googlemail.com
+            trust: smtp.gmail.com
           socketFactory:
             port: 465
             class: javax.net.ssl.SSLSocketFactory
