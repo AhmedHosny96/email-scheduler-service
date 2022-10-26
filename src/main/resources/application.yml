@@ -1,0 +1,63 @@
+server:
+  port: 50395
+  error:
+    include-message: always
+
+nbe:
+  url: http://196.191.76.123:8085/nbereport/public/
+
+spring:
+  config:
+    import: file:env.properties
+  profiles:
+    active: test
+  application:
+    name: email-scheduler-service
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: jdbc:sqlserver://${DB_DATABASE}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+
+## MAIL CONFIG
+
+  mail:
+    username: ${GMAIL_USERNAME}
+    password: ${GMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+            trust: smtp.googlemail.com
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+
+  ##LOGGING CONFIG
+
+logging:
+  file:
+    path: E:\Apps\email-scheduler-service\logs
+    name: ${logging.file.path}/email-scheduler-service.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+
+  level:
+    com.sahay: debug
+    org.springframework.web: error
+    org.hibernate: error
+
