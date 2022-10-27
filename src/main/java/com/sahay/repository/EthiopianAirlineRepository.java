@@ -11,8 +11,12 @@ import java.util.List;
 public interface EthiopianAirlineRepository extends JpaRepository<EthiopianAirline , Long> {
 
 
-    @Query(value = "SELECT [RequestId] , [WalletTransactionId], [Amount] , [PNR] ,[Currency],[DateCreated] , [PayerMobile] FROM [aggregator].[dbo].[EthiopianAirline]" +
-            "WHERE DateCreated < GETDATE() AND DateCreated > DATEADD(MINUTE ,-30 ,GETDATE()) AND PaymentConfirmResponse = '0000' ORDER BY DateCreated DESC"
+    @Query(value = "" +
+            "SELECT [RequestId] , [WalletTransactionId], [Amount] , [PNR] ,[Currency],[DateCreated] , [PayerMobile] " +
+            "FROM [aggregator].[dbo].[EthiopianAirline]" +
+            "WHERE DateCreated < GETDATE() AND DateCreated > DATEADD(MINUTE ,-30 ,GETDATE()) " +
+            "AND PaymentConfirmResponse in ('0000' , '0002') AND WalletTransactionId != 'NA' " +
+            "ORDER BY DateCreated DESC"
             , nativeQuery = true)
     List<EthiopianAirline> findEthiopianAirlinesLastTranx();
 }

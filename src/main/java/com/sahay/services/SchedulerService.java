@@ -1,14 +1,13 @@
 package com.sahay.services;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import java.io.ByteArrayInputStream;
 import java.util.concurrent.TimeUnit;
 
@@ -39,12 +38,19 @@ public class SchedulerService {
 
         ByteArrayInputStream payload = ethiopianAirlineService.fetchLastTranx();
 
+
         if (payload != null) {
         try {
             mailSenderService.sendMail(
-                     webSupportMail + "," + payAtBankMail + "," + itServiceDeskMail,
-                    "Ethiopian airline tickets purchased via sahay ",
-                    "Successfully issued tickets for the last 30 minutes ",
+                    webSupportMail + "," + payAtBankMail + "," + itServiceDeskMail,
+                    "This csv attachment is about the successful issued tickets via sahay for the last 30 minutes" +
+                            "" +
+                            "" +
+                            "NB: this email is sent automatically by an automated service , feel free to reach us if there is any complain" +
+                            "" +
+                            "Best Regards."
+                    ,
+                    "Ethiopian airline tickets purchased via sahay",
                     payload
             );
             log.info("Email send  to ethiopian airlines : {}");

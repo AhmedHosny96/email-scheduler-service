@@ -27,11 +27,11 @@ public class NbeService {
             ResponseEntity<Object> report = restTemplate.getForEntity(
                     NBE_URL, Object.class
             );
-            log.info("NBE report : {}", report);
+            log.info("NBE report  getBalancesForNBE  : {}", report);
 
             return new ResponseEntity<>(report, HttpStatus.OK);
         } catch (Exception e) {
-            log.error("error occurred : {}", e.getMessage());
+            log.error("error occurred getBalancesForNBE() : {}", e.getMessage());
             return new ResponseEntity<>("Error!, Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
